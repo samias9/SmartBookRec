@@ -1,57 +1,42 @@
+import { useState } from 'react';
 import { getRecommendationsA } from './auteur.mjs';
-import { getRecommendationsG} from './genre.mjs';
+import { getRecommendationsG } from './genre.mjs';
 import { getRecommendationsS } from './synopsis.mjs';
 import logo from './logo.png';
 import './App.css';
 
-
-function ButtonA() {
-  return (
-    <button>
-      Search by authors
-    </button>
-  );
-}
-
-function ButtonS() {
-  return (
-    <button>
-      Search by synopsis
-    </button>
-  );
-}
-
-function ButtonG() {
-  return (
-    <button>
-      Search by genres
-    </button>
-  );
-}
-/*
-function Result() {
-  case A
-  return (
-      getRecommendationsA("Victor Hugo et Guillaume Musso")
-  )
-  case G
-  return (
-      getRecommendationsG("Roman policier")
-  )
-  case S
-  return (
-      getRecommendationsS("Un aventurier qui part à la conquête de l'espace")
-  )
-}
-*/
 export default function MyApp() {
+  // État pour stocker la méthode de recherche et les résultats
+  const [searchType, setSearchType] = useState(null);
+  const [result, setResult] = useState(null);
+
+  // Gestion des recherches en fonction du type
+  const handleSearch = async (type) => {
+    let response;
+    if (type === 'author') {
+      response = await getRecommendationsA('Victor Hugo et Guillaume Musso');
+    } else if (type === 'genre') {
+      response = await getRecommendationsG('Roman policier');
+    } else if (type === 'synopsis') {
+      response = await getRecommendationsS("Un aventurier qui part à la conquête de l'espace");
+    }
+    setSearchType(type);
+    setResult(response); // Stocker le résultat de la recherche
+  };
+
   return (
     <div>
       <h1>Welcome to nextchapter</h1>
-      <ButtonA />
-      <ButtonS />
-      <ButtonG />
+      <button onClick={() => handleSearch('author')}>Search by authors</button>
+      <button onClick={() => handleSearch('synopsis')}>Search by synopsis</button>
+      <button onClick={() => handleSearch('genre')}>Search by genres</button>
       <img src={logo} alt="logo" />
+
+      {/* Afficher les résultats */}
+      <div>
+        {searchType && <h2>Results for {searchType} search:</h2>}
+        <pre>{result}</pre>
+      </div>
     </div>
   );
 }
