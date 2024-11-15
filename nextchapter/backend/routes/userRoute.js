@@ -12,6 +12,12 @@ router.put('/update/:userId', userController.updateUser);
 // Route pour supprimer un utilisateur
 router.delete('/delete/:userId', userController.deleteUser);
 
+// Route pour la connexion (login)
+router.post('/login', userController.loginUser);
+
+// Route pour la déconnexion (logout)
+router.post('/logout', userController.logoutUser);
+
 // Route de test pour vérifier que le serveur fonctionne
 router.get('/test', (req, res) => {
     res.status(200).json({ message: 'La route fonctionne correctement !' });
