@@ -13,6 +13,7 @@ export default function MyApp() {
   // Gestion des recherches en fonction du type
   const handleSearch = async (type) => {
     let response;
+    try{
     if (type === 'author') {
       response = await getRecommendationsA('Victor Hugo et Guillaume Musso');
     } else if (type === 'genre') {
@@ -20,9 +21,14 @@ export default function MyApp() {
     } else if (type === 'synopsis') {
       response = await getRecommendationsS("Un aventurier qui part à la conquête de l'espace");
     }
+    
     setSearchType(type);
     setResult(response); // Stocker le résultat de la recherche
-  };
+  }
+  catch (error) {
+    console.error("Error during API call:", error);
+  }
+};
 
   return (
     <div>

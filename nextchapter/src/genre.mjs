@@ -13,5 +13,5 @@ export async function getRecommendationsG(genres) {
         ],
     });
 
-    console.log(completion.choices[0].message);
+    return completion.choices[0].message.content;
 }
