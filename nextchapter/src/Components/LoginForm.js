@@ -26,6 +26,7 @@ export default function LoginForm({ onLoginSuccess, onClose, onSignUpClick }) {
 
   return (
     <div className="login-form">
+      <h2>Connexion</h2>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">

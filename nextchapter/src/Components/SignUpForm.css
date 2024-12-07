@@ -48,3 +48,25 @@
     background-color: #aaa;
   }
   
+  .sign-up-form .error-message {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  /* Transition et animation pour l'affichage */
+  .sign-up-form-container {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
+  }
+  
+  .sign-up-form-container.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  

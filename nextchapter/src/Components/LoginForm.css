@@ -2,8 +2,8 @@
 .login-form {
   width: 300px;
   padding: 20px;
-  background-color: #fff; /* Fond blanc pour une meilleure lisibilité */
-  border: 1px solid #ccc; /* Bordure claire */
+  background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -14,7 +14,7 @@
 
 .login-form label {
   font-size: 14px;
-  color: #333; /* Couleur sombre pour les labels */
+  color: #333;
 }
 
 .login-form input {
@@ -24,25 +24,22 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: #f9f9f9; /* Fond clair pour les champs de saisie */
-  color: #333; /* Texte foncé */
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 .login-form input:focus {
-  border-color: #007bff; /* Bordure bleue au focus */
+  border-color: #007bff;
   outline: none;
 }
 
 .login-form .form-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 10px; /* Espacement entre les boutons */
 }
 
 .login-form .style.button {
   padding: 10px 15px;
-  color: #e4e4e4;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
   color: #333;
@@ -70,4 +67,20 @@
 
 .login-form .sign-up-link .link-text:hover {
   text-decoration: underline;
+}
+
+/* Transition et animation pour l'affichage */
+.login-form-container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none; /* Désactive les interactions quand invisible */
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour rendre visible avec effet d'opacité */
+}
+
+.login-form-container.show {
+  opacity: 1;
+  pointer-events: auto; /* Active les interactions quand visible */
 }
