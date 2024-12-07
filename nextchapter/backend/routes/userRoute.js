@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userControllers');
-const User = require('../models/userModel'); // Importation du modèle User
+const User = require('../models/userModel');
+const authMiddleware = require('../middleware/authMiddleware'); // Import du middleware
+const jwt = require('jsonwebtoken');
 
 // Route pour créer un utilisateur
 router.post('/create', userController.createUser);
@@ -32,5 +34,13 @@ router.get('/all', async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs', error });
     }
 });
+
+router.get('/me', authMiddleware, userController.getUserInfo);
+
+// Route de promotion & rétrogradation
+router.put('/promote/premium/:userId', authMiddleware, userController.promoteToPremium);
+router.put('/promote/basic/:userId', authMiddleware, userController.promoteToBasic);
+router.put('/demote/basic/:userId', authMiddleware, userController.demoteToBasic);
+router.put('/demote/free/:userId', authMiddleware, userController.demoteToFree);
 
 module.exports = router;
