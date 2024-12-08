@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { getUserInfo } from '../api'; // Importez la fonction d'API
+import { useState, useEffect } from 'react';
+import { getUserInfo } from '../api'; // Assure-toi que cette fonction existe et est bien importée
+import './UserProfile.css'
 
 export default function UserProfile({ token, onClose }) {
-  const [userInfo, setUserInfo] = useState({ pseudo: '', grade: '' });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const data = await getUserInfo(token); // Utilisez la fonction d'API
-        setUserInfo(data);
-        setLoading(false);
-      } catch (err) {
-        setError('Erreur de récupération des informations');
-        setLoading(false);
-      }
-    };
-
-    fetchUserInfo();
+    if (token) {
+      console.log("Fetching user info with token:", token);
+      getUserInfo(token)
+        .then(response => {
+          console.log("User info fetched:", response);
+          setUserInfo(response);
+        })
+        .catch(error => {
+          console.error("Error fetching user info:", error);
+        });
+    }
   }, [token]);
 
-  if (loading) return <div>Chargement...</div>;
-  if (error) return <div>{error}</div>;
+  if (!userInfo) return <div>Loading...</div>;
 
   return (
     <div className="user-profile">
       <h2>Profil de l'utilisateur</h2>
-      <p>Nom: {userInfo.pseudo}</p>
-      <p>Grade: {userInfo.grade}</p>
-      <button onClick={onClose}>Fermer</button>
+      {/* Affichage de pseudo et grade à la place de name et email */}
+      <p>Nom : {userInfo.pseudo}</p>  {/* Utilise 'pseudo' au lieu de 'name' */}
+      <p>Grade : {userInfo.grade}</p>  {/* Utilise 'grade' au lieu de 'email' */}
+      <button onClick={onClose}>Déconnexion</button>
     </div>
   );
 }

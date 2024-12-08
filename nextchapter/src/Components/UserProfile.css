@@ -1,0 +1,59 @@
+/* Style du profil utilisateur */
+.user-profile {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-profile h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .user-profile p {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .user-profile .grade {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .user-profile button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #e4e4e4;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  .user-profile button:hover {
+    background-color: #aaa;
+  }
+  
+  /* Transition et animation pour l'affichage du profil */
+  .user-profile-container {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none; /* Désactive les interactions quand invisible */
+    transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour rendre visible avec effet d'opacité */
+  }
+  
+  .user-profile-container.show {
+    opacity: 1;
+    pointer-events: auto; /* Active les interactions quand visible */
+  }
+  
