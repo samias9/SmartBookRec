@@ -48,37 +48,20 @@
   display: block;
 }
 
-.profile-menu {
+/* User Profile Container */
+.user-profile-container {
   position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 150px;
-  display: none;
+  top: 60px; /* Espacement sous le header */
+  right: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none; /* Empêche l'interaction tant qu'il est invisible */
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour l'affichage */
 }
 
-.profile-menu p {
-  margin: 5px 0;
-}
-
-.profile-section .show-profile-menu {
-  display: block;
-}
-
-.logout-button {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.logout-button:hover {
-  background-color: #d32f2f;
+.user-profile-container.show {
+  opacity: 1;
+  pointer-events: auto; /* Active les interactions quand visible */
 }
 
 /* Style du formulaire de connexion */

@@ -38,7 +38,9 @@ export const deleteUser = async (userId) => {
 export const loginUser = async (pseudo, password) => {
   try {
     const response = await API_BASE_URL.post('users/login', { pseudo, password });
-    return response.data; // Le backend doit renvoyer un objet contenant `token`
+    const token = response.data.token; // Récupérer le token à partir de la réponse
+    localStorage.setItem('token', token); // Stocker le token dans localStorage
+    return response.data; // Retourner la réponse complète
   } catch (error) {
     throw error.response ? error.response.data : error.message;
   }
@@ -127,8 +129,9 @@ export const getUserInfo = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.data; // Les données utilisateur renvoyées par le backend
   } catch (error) {
-    throw error.response ? error.response.data : error.message;
+    console.error('Erreur lors de la récupération des informations utilisateur:', error.response || error.message);
+    throw error.response ? error.response.data : { message: 'Une erreur inconnue s\'est produite' };
   }
 };
