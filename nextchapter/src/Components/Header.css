@@ -1,11 +1,12 @@
+/* Header Styling */
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* Aligne les éléments aux extrémités */
   padding: 10px 20px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  position: relative;
+  width: 100%;
 }
 
 .header-title {
@@ -13,7 +14,33 @@
   font-weight: bold;
   margin: 0;
 }
+/* Profile and Connection Sections */
+.profile-section,
+.connection-section {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  position: relative;
+}
 
+/* Bouton Profil */
+.profile-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc; /* Couleur par défaut */
+}
+
+/* Connexion Button */
 .header-button {
   padding: 8px 12px;
   font-size: 14px;
@@ -29,26 +56,39 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Section */
-.profile-section {
-  position: relative;
+/* Login Form */
+.login-form-container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none; /* Empêche l'interaction tant qu'invisible */
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
-.profile-button {
-  border: none;
-  background: none;
-  cursor: pointer;
+.login-form-container.show {
+  opacity: 1;
+  pointer-events: auto; /* Active les interactions quand visible */
 }
 
-.profile-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #ccc; /* Place a default background if the icon is not loaded */
-  display: block;
+/* Sign-Up Form */
+.sign-up-form-container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none; /* Empêche l'interaction tant qu'invisible */
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
-/* User Profile Container */
+.sign-up-form-container.show {
+  opacity: 1;
+  pointer-events: auto; /* Active les interactions quand visible */
+}
+
+/* User Profile */
 .user-profile-container {
   position: absolute;
   top: 60px; /* Espacement sous le header */
@@ -56,7 +96,7 @@
   z-index: 10;
   opacity: 0;
   pointer-events: none; /* Empêche l'interaction tant qu'il est invisible */
-  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour l'affichage */
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
 .user-profile-container.show {
@@ -64,29 +104,10 @@
   pointer-events: auto; /* Active les interactions quand visible */
 }
 
-/* Style du formulaire de connexion */
-.login-form-container {
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  z-index: 10;
-  opacity: 0;
-}
-
-.login-form-container.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.sign-up-form-container {
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  z-index: 10;
-  opacity: 0;
-}
-
-.sign-up-form-container.show {
-  opacity: 1;
-  pointer-events: auto;
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
 }
