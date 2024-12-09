@@ -4,14 +4,14 @@ import { getRecommendationsG } from './genre.mjs';
 import { getRecommendationsS } from './synopsis.mjs';
 import Header from './Components/Header';
 import Login from './Components/LoginForm';
-import { getUserInfo } from './api'; // Assurez-vous que cette fonction est bien importée
+import { getUserInfo } from './api';
 import './App.css';
 
 // Limites des requêtes par grade
 const gradeLimits = {
   free: 1,
   basic: 5,
-  premium: Infinity, // Pas de limite pour les utilisateurs premium
+  premium: Infinity,
 };
 
 export default function MyApp() {
@@ -21,8 +21,6 @@ export default function MyApp() {
   const [userQuery, setUserQuery] = useState('');
   const [response, setResponse] = useState('');
   const [searchType, setSearchType] = useState(null);
-
-  // État supplémentaire
   const [userGrade, setUserGrade] = useState(null); // Grade récupéré depuis la BDD
   const [requestCount, setRequestCount] = useState(0);
 
@@ -91,7 +89,7 @@ export default function MyApp() {
   const remainingRequests = userGrade ? (gradeLimits[userGrade] - requestCount) : 0;
 
   return (
-    <div>
+    <div className='main_div'>
       <Header
         isAuthenticated={isAuthenticated}
         onLoginClick={() => setIsLoginFormVisible(true)}
@@ -107,7 +105,7 @@ export default function MyApp() {
           </div>
         </div>
       )}
-      <h1>Welcome to nextchapter</h1>
+      <h1>Bienvenue sur NextChapter</h1>
       <div>
         <label>
           Select Search Type:
@@ -119,7 +117,7 @@ export default function MyApp() {
           </select>
         </label>
         <textarea
-          placeholder="Type your query here..."
+          placeholder="Taper le sujet de votre recherche ici."
           value={userQuery}
           onChange={(e) => setUserQuery(e.target.value)}
         />
@@ -131,14 +129,14 @@ export default function MyApp() {
             (userGrade && requestCount >= (gradeLimits[userGrade] || 0))
           }
         >
-          Submit
+          Trouver mes livres
         </button>
         {isAuthenticated && userGrade && (
-          <><h3>Remaining Requests: {remainingRequests}</h3></> 
+          <><h3>Nombre de requêtes restantes : {remainingRequests}</h3></> 
         )}
       </div>
       <div>
-        <h2>Response:</h2>
+        <h2>Nos recommendations :</h2>
         <pre>{response}</pre>
       </div>
     </div>

@@ -36,11 +36,6 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/me', authMiddleware, userController.getUserInfo);
-
-// Route de promotion & rétrogradation
-router.put('/promote/premium/:userId', authMiddleware, userController.promoteToPremium);
-router.put('/promote/basic/:userId', authMiddleware, userController.promoteToBasic);
-router.put('/demote/basic/:userId', authMiddleware, userController.demoteToBasic);
-router.put('/demote/free/:userId', authMiddleware, userController.demoteToFree);
+router.patch('/users/:userId/grade', authMiddleware, userController.updateUserGrade);
 
 module.exports = router;

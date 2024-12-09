@@ -1,18 +1,18 @@
 /* Header Styling */
 header {
   display: flex; /* Pour aligner les éléments horizontalement */
-  justify-content: space-between; /* Séparer le titre et le bouton */
+  justify-content: space-between; /* Espace entre le titre et la partie droite */
   align-items: center; /* Centrer verticalement les éléments */
-  position: fixed; /* Rendre le header fixe en haut */
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%; /* Assurer que le header occupe toute la largeur */
-  height: 60px; /* Hauteur fixe pour éviter le débordement */
-  background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-  z-index: 100; /* Assurer que le header est au-dessus des autres éléments */
-  padding: 0 20px; /* Marges internes */
-  box-sizing: border-box; /* Inclure le padding dans la largeur */
+  width: 100%; 
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .header-title {
@@ -20,16 +20,15 @@ header {
   font-weight: bold;
   margin: 0;
 }
-/* Profile and Connection Sections */
-.profile-section,
-.connection-section {
+
+/* Align profile and login button at the right */
+.header-right {
   display: flex;
   align-items: center;
-  margin-left: auto;
-  position: relative;
+  justify-content: flex-end; /* Aligner à droite */
+  width: auto; /* Réduit la largeur au minimum nécessaire */
 }
 
-/* Bouton Profil */
 .profile-button {
   border: none;
   background: none;
@@ -40,11 +39,10 @@ header {
 }
 
 .profile-icon {
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Connexion Button */
 .header-button {
   padding: 8px 12px;
   font-size: 14px;
@@ -67,51 +65,27 @@ header {
   right: 20px;
   z-index: 10;
   opacity: 0;
-  pointer-events: none; /* Empêche l'interaction tant qu'invisible */
+  pointer-events: none;
   transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
 .login-form-container.show {
   opacity: 1;
-  pointer-events: auto; /* Active les interactions quand visible */
-}
-
-/* Sign-Up Form */
-.sign-up-form-container {
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none; /* Empêche l'interaction tant qu'invisible */
-  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
-}
-
-.sign-up-form-container.show {
-  opacity: 1;
-  pointer-events: auto; /* Active les interactions quand visible */
+  pointer-events: auto;
 }
 
 /* User Profile */
 .user-profile-container {
   position: absolute;
-  top: 60px; /* Espacement sous le header */
+  top: 60px;
   right: 20px;
   z-index: 10;
   opacity: 0;
-  pointer-events: none; /* Empêche l'interaction tant qu'il est invisible */
+  pointer-events: none;
   transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
 .user-profile-container.show {
   opacity: 1;
-  pointer-events: auto; /* Active les interactions quand visible */
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666;
+  pointer-events: auto;
 }

@@ -93,87 +93,30 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Promouvoir un utilisateur au grade Premium
-exports.promoteToPremium = async (req, res) => {
+exports.updateUserGrade = async (req, res) => {
   try {
     const { userId } = req.params;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé.' });
-    }
-    // Si l'utilisateur est déjà premium, on ne fait rien
-    if (user.grade === 'premium') {
-      return res.status(400).json({ message: 'L\'utilisateur est déjà au grade Premium.' });
-    }
-    // Met à jour le grade de l'utilisateur
-    user.grade = 'premium';
-    await user.save();
-    res.status(200).json({ message: 'Utilisateur promu au grade Premium avec succès.', user });
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la promotion de l\'utilisateur.', error });
-  }
-};
+    const { grade } = req.body; // "premium", "basic", ou "free"
 
-// Promouvoir un utilisateur au grade Premium
-exports.promoteToBasic = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    const allowedGrades = ['premium', 'basic', 'free'];
+    if (!allowedGrades.includes(grade)) {
+      return res.status(400).json({ message: 'Grade invalide.' });
     }
-    // Si l'utilisateur est déjà premium, on ne fait rien
-    if (user.grade === 'basic') {
-      return res.status(400).json({ message: 'L\'utilisateur est déjà au grade Basic.' });
-    }
-    // Met à jour le grade de l'utilisateur
-    user.grade = 'basic';
-    await user.save();
-    res.status(200).json({ message: 'Utilisateur promu au grade Basic avec succès.', user });
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la promotion de l\'utilisateur.', error });
-  }
-};
 
-// Rétrograder un utilisateur vers Basic
-exports.demoteToBasic = async (req, res) => {
-  try {
-    const { userId } = req.params;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'Utilisateur non trouvé.' });
     }
-    // Si l'utilisateur est déjà au grade Basic, on ne fait rien
-    if (user.grade === 'basic') {
-      return res.status(400).json({ message: 'L\'utilisateur est déjà au grade Basic.' });
-    }
-    // Rétrograde l'utilisateur vers Basic
-    user.grade = 'basic';
-    await user.save();
-    res.status(200).json({ message: 'Utilisateur rétrogradé au grade Basic avec succès.', user });
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la rétrogradation de l\'utilisateur.', error });
-  }
-};
 
-// Rétrograder un utilisateur vers Free
-exports.demoteToFree = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    if (user.grade === grade) {
+      return res.status(400).json({ message: `L'utilisateur est déjà au grade ${grade}.` });
     }
-    // Si l'utilisateur est déjà au grade Free, on ne fait rien
-    if (user.grade === 'free') {
-      return res.status(400).json({ message: 'L\'utilisateur est déjà au grade Free.' });
-    }
-    // Rétrograde l'utilisateur vers Free
-    user.grade = 'free';
+
+    user.grade = grade;
     await user.save();
-    res.status(200).json({ message: 'Utilisateur rétrogradé au grade Free avec succès.', user });
+    res.status(200).json({ message: `Utilisateur promu au grade ${grade} avec succès.`, user });
   } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la rétrogradation de l\'utilisateur.', error });
+    res.status(500).json({ message: 'Erreur lors de la mise à jour du grade.', error });
   }
 };
 
