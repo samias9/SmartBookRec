@@ -1,32 +1,28 @@
-/* App.css */
-
-/* Styles généraux */
+/* Flouter l'image de fond */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f9f9f9;
   color: #333;
+  background-image: url('https://media.letelegramme.fr/api/v1/images/view/63e3df89711984407f49a2b4/web_golden_xl/63e3df89711984407f49a2b4.1'); /* URL de l'image */
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
 }
 
-.submit-button{
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-.submit-button:hover{
-  background-color: #f0f0f0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #444;
-  margin-top: 20px;
+/* Superposition sombre pour améliorer la lisibilité du contenu */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Couche semi-transparente noire */
+  z-index: -1;
 }
 
 /* Conteneur principal */
@@ -34,69 +30,111 @@ div {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* Conteneur du profil utilisateur */
+.profile-container {
+  position: fixed; /* Pour que le conteneur reste visible */
+  top: 50px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 20; /* Assurez-vous qu'il est au-dessus des autres */
+}
+
+/* Titre de la page */
+h1 {
+  text-align: center;
+  color: #444;
+  margin-top: 20px;
 }
 
 /* Dropdown et textarea */
 select, textarea {
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  padding: 12px;
   margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
 }
 
+/* Ajustement du textarea pour éviter un débordement */
 textarea {
   resize: vertical;
   min-height: 100px;
+  max-height: 200px; /* Limite la hauteur du champ */
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
 }
 
-/* Zone de réponse */
+select:focus, textarea:focus {
+  border-color: #0056b3; /* Changer la bordure au focus */
+  outline: none; /* Supprimer l'outline par défaut */
+}
+
+/* Bouton d'envoi avec des couleurs personnalisées */
+.submit-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #007bff; /* Bordure bleue */
+  border-radius: 6px; 
+  background-color: #007bff; /* Fond bleu */
+  color: white;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Couleur plus foncée au survol */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+  transform: scale(1.05); /* Légèrement agrandi au survol */
+}
+
+/* Bouton désactivé avec des effets visuels */
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  color: #666666;
+  border: 2px solid #aaa;
+  transform: none; /* Pas d'effet de survol */
+}
+
+/* Zone de réponse avec des coins arrondis et un effet de dégradé */
 pre {
   background-color: #f4f4f4;
   padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 8px; /* Coins arrondis */
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Dégradé léger */
 }
 
-
-
-/* Modal */
-.modal {
-  position: fixed;
+/* Header fixe avec une largeur limitée */
+header {
+  display: flex; /* Pour aligner les éléments horizontalement */
+  justify-content: space-between; /* Séparer le titre et le bouton */
+  align-items: center; /* Centrer verticalement les éléments */
+  position: fixed; /* Rendre le header fixe en haut */
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.modal-content h2 {
-  margin-top: 0;
-  text-align: center;
-  color: #444;
-}
-
-.modal-content button {
-  display: block;
-  margin: 20px auto 0;
-  width: 100px;
+  width: 100%; /* Assurer que le header occupe toute la largeur */
+  height: 60px; /* Hauteur fixe pour éviter le débordement */
+  background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  z-index: 100; /* Assurer que le header est au-dessus des autres éléments */
+  padding: 0 20px; /* Marges internes */
+  box-sizing: border-box; /* Inclure le padding dans la largeur */
 }
 
 /* Footer */
@@ -106,9 +144,143 @@ footer {
   font-size: 14px;
   color: #666;
 }
+/* Flouter l'image de fond */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  background-image: url('https://media.letelegramme.fr/api/v1/images/view/63e3df89711984407f49a2b4/web_golden_xl/63e3df89711984407f49a2b4.1'); /* URL de l'image */
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+}
+
+/* Superposition sombre pour améliorer la lisibilité du contenu */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Couche semi-transparente noire */
+  z-index: -1;
+}
+
+/* Conteneur principal */
+div {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* Conteneur du profil utilisateur */
+.profile-container {
+  position: fixed; /* Pour que le conteneur reste visible */
+  top: 50px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 20; /* Assurez-vous qu'il est au-dessus des autres */
+}
+
+/* Titre de la page */
+h1 {
+  text-align: center;
+  color: #444;
+  margin-top: 20px;
+}
+
+/* Dropdown et textarea */
+select, textarea {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+/* Ajustement du textarea pour éviter un débordement */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 200px; /* Limite la hauteur du champ */
+  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+}
+
+select:focus, textarea:focus {
+  border-color: #0056b3; /* Changer la bordure au focus */
+  outline: none; /* Supprimer l'outline par défaut */
+}
+
+/* Bouton d'envoi avec des couleurs personnalisées */
+.submit-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #007bff; /* Bordure bleue */
+  border-radius: 6px; 
+  background-color: #007bff; /* Fond bleu */
+  color: white;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Couleur plus foncée au survol */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+  transform: scale(1.05); /* Légèrement agrandi au survol */
+}
+
+/* Bouton désactivé avec des effets visuels */
 button:disabled {
-  background-color: #ccc;
+  background-color: #cccccc;
   cursor: not-allowed;
+  color: #666666;
+  border: 2px solid #aaa;
+  transform: none; /* Pas d'effet de survol */
+}
+
+/* Zone de réponse avec des coins arrondis et un effet de dégradé */
+pre {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Coins arrondis */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Dégradé léger */
+}
+
+/* Header */
+header {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 100%;
+  top: 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
   color: #666;
-  border: 1px solid #aaa;
 }
