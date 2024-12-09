@@ -1,0 +1,117 @@
+/*
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const SearchButton = () => {
+  const [author, setAuthor] = useState(''); // Champ pour le nom de l'auteur
+  const [books, setBooks] = useState([]); // Stocker les résultats de la recherche
+
+  // Fonction pour gérer la recherche
+  const handleSearch = async () => {
+    if (!author.trim()) {
+      alert("Veuillez entrer un auteur valide.");
+      return;
+    }
+  
+    try {
+      const response = await axios.post('http://localhost:5002/api/books/search', { author });
+      setBooks(response.data);
+    } catch (error) {
+      console.error('Erreur pendant la recherche des livres :', error.response?.data || error.message);
+      alert(error.response?.data?.message || "Erreur inconnue.");
+    }
+  };
+  
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Entrez un auteur"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+      <button onClick={handleSearch}>Rechercher</button>
+
+      <div>
+        <h3>Livres de l'auteur :</h3>
+        <ul>
+          {books.map((book) => (
+            <li key={book._id}>
+              <h4>{book.title}</h4>
+              <p>{book.authors?.join(', ')}</p>
+              <img src={book.thumbnail} alt={book.title} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default SearchButton;
+*/
+import React, { useState } from 'react';
+import axios from 'axios';
+import { getRecommendationsA } from '../auteur.mjs'; 
+
+const SearchButton = () => {
+  const [author, setAuthor] = useState(''); // Champ pour le nom de l'auteur
+  const [books, setBooks] = useState([]); // C pour Stocker les résultats de la recherche
+  const [recommendations, setRecommendations] = useState(''); // Stocker les recommandations de Mr. GPT
+
+  // Fonction pour gérer la recherche
+  const handleSearch = async () => {
+    if (!author.trim()) {
+      alert("Veuillez entrer un auteur valide.");
+      return;
+    }
+
+    try {
+      // Étape 1 : Obtenir les livres depuis la base de données
+      const response = await axios.post('http://localhost:5002/api/books/search', { author });
+      setBooks(response.data);
+
+      // Extraire les noms des auteurs uniques des livres récupérés
+      const authorNames = [...new Set(response.data.flatMap((book) => book.authors || []))];
+
+      // Étape 2 : Obtenir des recommandations via OpenAI
+      const gptResponse = await getRecommendationsA(authorNames.join(', '));
+      setRecommendations(gptResponse);
+    } catch (error) {
+      console.error('Erreur pendant la recherche des livres :', error.response?.data || error.message);
+      alert(error.response?.data?.message || "Erreur inconnue.");
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Entrez un auteur"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+      <button onClick={handleSearch}>Rechercher</button>
+
+      <div>
+        <h3>Livres de l'auteur :</h3>
+        <ul>
+          {books.map((book) => (
+            <li key={book._id}>
+              <h4>{book.title}</h4>
+              <p>{book.authors?.join(', ')}</p>
+              <img src={book.thumbnail} alt={book.title} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3>Recommandations :</h3>
+        <p>{recommendations}</p>
+      </div>
+    </div>
+  );
+};
+
+export default SearchButton;
