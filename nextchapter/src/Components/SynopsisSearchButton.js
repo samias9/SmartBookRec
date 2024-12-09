@@ -1,12 +1,12 @@
-//SynopsisSearchButton
+//MARCHE PAS
 import React, { useState } from 'react';
 import axios from 'axios';
-import { getRecommendationsS } from '../synopsis.mjs'; // Assurez-vous que le chemin est correct
+import { getRecommendationsS } from '../synopsis.mjs'; 
 
 const SynopsisSearchButton = () => {
-  const [synopsis, setSynopsis] = useState(''); // Champ pour le synopsis
-  const [books, setBooks] = useState([]); // Stocker les résultats de la recherche
-  const [recommendations, setRecommendations] = useState(''); // Stocker les recommandations de GPT
+  const [synopsis, setSynopsis] = useState(''); 
+  const [books, setBooks] = useState([]); 
+  const [recommendations, setRecommendations] = useState(''); 
 
   // Fonction pour gérer la recherche
   const handleSearch = async () => {
