@@ -120,23 +120,6 @@ pre {
   background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Dégradé léger */
 }
 
-/* Header fixe avec une largeur limitée */
-header {
-  display: flex; /* Pour aligner les éléments horizontalement */
-  justify-content: space-between; /* Séparer le titre et le bouton */
-  align-items: center; /* Centrer verticalement les éléments */
-  position: fixed; /* Rendre le header fixe en haut */
-  top: 0;
-  left: 0;
-  width: 100%; /* Assurer que le header occupe toute la largeur */
-  height: 60px; /* Hauteur fixe pour éviter le débordement */
-  background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-  z-index: 100; /* Assurer que le header est au-dessus des autres éléments */
-  padding: 0 20px; /* Marges internes */
-  box-sizing: border-box; /* Inclure le padding dans la largeur */
-}
-
 /* Footer */
 footer {
   text-align: center;
@@ -236,6 +219,7 @@ select:focus, textarea:focus {
   background-color: #007bff; /* Fond bleu */
   color: white;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  
 }
 
 .submit-button:hover {
