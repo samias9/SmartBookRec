@@ -1,12 +1,18 @@
 /* Header Styling */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Aligne les éléments aux extrémités */
-  padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  width: 100%;
+header {
+  display: flex; /* Pour aligner les éléments horizontalement */
+  justify-content: space-between; /* Séparer le titre et le bouton */
+  align-items: center; /* Centrer verticalement les éléments */
+  position: fixed; /* Rendre le header fixe en haut */
+  top: 0;
+  left: 0;
+  width: 100%; /* Assurer que le header occupe toute la largeur */
+  height: 60px; /* Hauteur fixe pour éviter le débordement */
+  background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  z-index: 100; /* Assurer que le header est au-dessus des autres éléments */
+  padding: 0 20px; /* Marges internes */
+  box-sizing: border-box; /* Inclure le padding dans la largeur */
 }
 
 .header-title {
@@ -34,10 +40,8 @@
 }
 
 .profile-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #ccc; /* Couleur par défaut */
+  width: 15px;
+  height: 15px;
 }
 
 /* Connexion Button */
