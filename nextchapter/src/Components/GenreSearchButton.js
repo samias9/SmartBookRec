@@ -1,18 +1,17 @@
-//GenreSearchButton.js
+//Marche pas
 import React, { useState } from 'react';
 import axios from 'axios';
-import { getRecommendationsG } from '../genre.mjs'; // Assurez-vous que le chemin est correct
+import { getRecommendationsG } from '../genre.mjs'; 
 
 const GenreSearchButton = () => {
-  const [genre, setGenre] = useState(''); // Champ pour le genre
-  const [books, setBooks] = useState([]); // Stocker les résultats de la recherche
-  const [recommendations, setRecommendations] = useState(''); // Stocker les recommandations de GPT
+  const [genre, setGenre] = useState(''); 
+  const [books, setBooks] = useState([]); 
+  const [recommendations, setRecommendations] = useState(''); 
 
   // Fonction pour gérer la recherche
   const handleSearch = async () => {
     try {
-      // Step 1: Fetch all books from the database
-      const response = await axios.post('http://localhost:5002/api/books/searchByGenre', { genre: '' });
+      const response = await axios.post('http://localhost:5000/api/books/searchByGenre', { genre: '' });
       setBooks(response.data);
   
       // Extract details (e.g., titles, authors) for OpenAI recommendations
