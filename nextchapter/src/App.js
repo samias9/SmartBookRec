@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getRecommendationsA } from './auteur.mjs';
 import { getRecommendationsG } from './genre.mjs';
 import { getRecommendationsS } from './synopsis.mjs';
 import Header from './Components/Header';
 import Login from './Components/LoginForm';
+import { getUserInfo } from './api';
 import './App.css';
+
+// Limites des requêtes par grade
+const gradeLimits = {
+  free: 1,
+  basic: 5,
+  premium: Infinity,
+};
 
 export default function MyApp() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,16 +21,26 @@ export default function MyApp() {
   const [userQuery, setUserQuery] = useState('');
   const [response, setResponse] = useState('');
   const [searchType, setSearchType] = useState(null);
-  
-  // État supplémentaire
-  const [userGrade, setUserGrade] = useState('free'); // 'free', 'basic', 'premium'
+  const [userGrade, setUserGrade] = useState(null); // Grade récupéré depuis la BDD
   const [requestCount, setRequestCount] = useState(0);
+
+  useEffect(() => {
+    // Récupérer les informations utilisateur après authentification
+    if (authToken) {
+      getUserInfo(authToken)
+        .then((data) => {
+          setUserGrade(data.grade); // Mettre à jour le grade depuis la BDD
+          setRequestCount(0); // Réinitialiser le compteur de requêtes
+        })
+        .catch((error) => {
+          console.error('Error fetching user info:', error);
+        });
+    }
+  }, [authToken]);
 
   const handleLoginSuccess = (token) => {
     setAuthToken(token);
     setIsAuthenticated(true);
-    setUserGrade('free'); // Par défaut, grade "free" après connexion
-    setRequestCount(0); // Réinitialise le compteur après connexion
     localStorage.setItem('authToken', token);
     setIsLoginFormVisible(false);
   };
@@ -41,13 +59,10 @@ export default function MyApp() {
       return;
     }
 
-    if (userGrade === 'free' && requestCount >= 1) {
-      setResponse('Free users are limited to 1 request.');
-      return;
-    }
-
-    if (userGrade === 'basic' && requestCount >= 5) {
-      setResponse('Basic users are limited to 5 requests.');
+    // Vérification des limites selon le grade
+    const maxRequests = gradeLimits[userGrade] || 0;
+    if (requestCount >= maxRequests) {
+      setResponse(`You have reached your request limit for the ${userGrade} grade.`);
       return;
     }
 
@@ -71,11 +86,13 @@ export default function MyApp() {
     }
   };
 
+  const remainingRequests = userGrade ? (gradeLimits[userGrade] - requestCount) : 0;
+
   return (
-    <div>
+    <div className='main_div'>
       <Header
         isAuthenticated={isAuthenticated}
-        onLoginClick={() => setIsLoginFormVisible(true)} 
+        onLoginClick={() => setIsLoginFormVisible(true)}
         onLogoutClick={handleLogout}
         onLoginSuccess={handleLoginSuccess}
       />
@@ -88,7 +105,7 @@ export default function MyApp() {
           </div>
         </div>
       )}
-      <h1>Welcome to nextchapter</h1>
+      <h1>Bienvenue sur NextChapter</h1>
       <div>
         <label>
           Select Search Type:
@@ -100,22 +117,26 @@ export default function MyApp() {
           </select>
         </label>
         <textarea
-          placeholder="Type your query here..."
+          placeholder="Taper le sujet de votre recherche ici."
           value={userQuery}
           onChange={(e) => setUserQuery(e.target.value)}
         />
-        <button 
-          className="submit-button" 
+        <button
+          className="submit-button"
           onClick={handleQuerySubmit}
-          disabled={!isAuthenticated || 
-                    (userGrade === 'free' && requestCount >= 1) || 
-                    (userGrade === 'basic' && requestCount >= 5)}
+          disabled={
+            !isAuthenticated ||
+            (userGrade && requestCount >= (gradeLimits[userGrade] || 0))
+          }
         >
-          Submit
+          Trouver mes livres
         </button>
+        {isAuthenticated && userGrade && (
+          <><h3>Nombre de requêtes restantes : {remainingRequests}</h3></> 
+        )}
       </div>
       <div>
-        <h2>Response:</h2>
+        <h2>Nos recommendations :</h2>
         <pre>{response}</pre>
       </div>
     </div>

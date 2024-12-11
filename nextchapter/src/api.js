@@ -3,7 +3,6 @@ import axios from 'axios';
 // Instance Axios avec la base URL
 const API_BASE_URL = axios.create({ baseURL: 'http://localhost:5000/api' });
 
-
 // Fonction pour créer un utilisateur
 export const createUser = async (pseudo, password) => {
   try {
@@ -66,54 +65,11 @@ export const getAllUsers = async () => {
   }
 };
 
-// Fonction pour promouvoir un utilisateur au niveau premium
-export const promoteToPremium = async (userId, token) => {
+export const updateUserGrade = async (userId, grade, token) => {
   try {
-    const response = await API_BASE_URL.put(`users/promote/premium/${userId}`, {}, {
+    const response = await API_BASE_URL.patch(`users/${userId}/grade`, { grade }, {
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error.message;
-  }
-};
-
-// Fonction pour rétrograder un utilisateur au niveau basique
-export const promoteToBasic = async (userId, token) => {
-  try {
-    const response = await API_BASE_URL.put(`users/promote/basic/${userId}`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error.message;
-  }
-};
-
-// Fonction pour rétrograder un utilisateur au niveau free
-export const demoteToFree = async (userId, token) => {
-  try {
-    const response = await API_BASE_URL.put(`users/demote/free/${userId}`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error.response ? error.response.data : error.message;
-  }
-};
-
-// Fonction pour rétrograder un utilisateur au niveau basique
-export const demoteToBasic = async (userId, token) => {
-  try {
-    const response = await API_BASE_URL.put(`users/demote/basic/${userId}`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,  // En-tête Authorization
       },
     });
     return response.data;

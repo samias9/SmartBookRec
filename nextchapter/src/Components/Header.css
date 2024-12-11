@@ -1,17 +1,46 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+/* Header Styling */
+header {
+  display: flex; /* Pour aligner les éléments horizontalement */
+  justify-content: space-between; /* Espace entre le titre et la partie droite */
+  align-items: center; /* Centrer verticalement les éléments */
   position: relative;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .header-title {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
+}
+
+/* Align profile and login button at the right */
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Aligner à droite */
+  width: auto; /* Réduit la largeur au minimum nécessaire */
+}
+
+.profile-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .header-button {
@@ -29,48 +58,15 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Section */
-.profile-section {
-  position: relative;
-}
-
-.profile-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.profile-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: #ccc; /* Place a default background if the icon is not loaded */
-  display: block;
-}
-
-/* User Profile Container */
-.user-profile-container {
-  position: absolute;
-  top: 60px; /* Espacement sous le header */
-  right: 20px;
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none; /* Empêche l'interaction tant qu'il est invisible */
-  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour l'affichage */
-}
-
-.user-profile-container.show {
-  opacity: 1;
-  pointer-events: auto; /* Active les interactions quand visible */
-}
-
-/* Style du formulaire de connexion */
+/* Login Form */
 .login-form-container {
   position: absolute;
   top: 50px;
   right: 20px;
   z-index: 10;
   opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
 .login-form-container.show {
@@ -78,15 +74,18 @@
   pointer-events: auto;
 }
 
-.sign-up-form-container {
+/* User Profile */
+.user-profile-container {
   position: absolute;
-  top: 50px;
+  top: 60px;
   right: 20px;
   z-index: 10;
   opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, pointer-events 0s ease 0.3s;
 }
 
-.sign-up-form-container.show {
+.user-profile-container.show {
   opacity: 1;
   pointer-events: auto;
 }
