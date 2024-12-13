@@ -33,10 +33,8 @@ router.post('/api/books/searchByGenre', async (req, res) => {
     let books;
 
     if (genre) {
-      // Fetch books by genre
       books = await Book.find({ genre: { $regex: genre, $options: 'i' } });
     } else {
-      // Fetch all books if no genre is provided
       books = await Book.find({});
     }
 
@@ -49,11 +47,11 @@ router.post('/api/books/searchByGenre', async (req, res) => {
 
 
 router.post('/api/books/searchBySynopsis', async (req, res) => {
-  const { synopsis } = req.body; // This will still come from the frontend as "synopsis"
+  const { synopsis } = req.body; 
   
   try {
     const books = await Book.find({ description: { $regex: synopsis, $options: 'i' } });
-    res.json(books); // Return books matching the description
+    res.json(books);
   } catch (error) {
     console.error('Erreur serveur :', error.message);
     res.status(500).json({ message: 'Erreur serveur.' });

@@ -16,7 +16,7 @@ export default function LoginForm({ onLoginSuccess, onClose, onSignUpClick }) {
       console.log('Réponse reçue du backend :', data);
 
       const { token } = data;
-      onLoginSuccess(token); // Si succès
+      onLoginSuccess(token); 
       onClose();
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);

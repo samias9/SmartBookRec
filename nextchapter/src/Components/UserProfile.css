@@ -1,4 +1,3 @@
-/* Style du profil utilisateur */
 .user-profile {
     width: 300px;
     padding: 20px;
@@ -41,19 +40,19 @@
     background-color: #aaa;
   }
   
-  /* Transition et animation pour l'affichage du profil */
+
   .user-profile-container {
     position: absolute;
     top: 50px;
     right: 20px;
     z-index: 10;
     opacity: 0;
-    pointer-events: none; /* Désactive les interactions quand invisible */
-    transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; /* Transition pour rendre visible avec effet d'opacité */
+    pointer-events: none; 
+    transition: opacity 0.3s ease, pointer-events 0s ease 0.3s; 
   }
   
   .user-profile-container.show {
     opacity: 1;
-    pointer-events: auto; /* Active les interactions quand visible */
+    pointer-events: auto; 
   }
   

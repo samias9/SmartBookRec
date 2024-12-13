@@ -17,10 +17,10 @@ export default function UserProfile({ token, onClose }) {
           console.log('Utilisateur récupéré:', response);
           if (response && response.pseudo) {
             setUserInfo(response);
-            setError('');  // Réinitialiser l'erreur s'il y a un utilisateur valide
+            setError('');  
           } else {
             setError('Données utilisateur invalides.');
-            setUserInfo(null);  // Assurez-vous que userInfo soit null en cas d'erreur
+            setUserInfo(null);  
           }
           setLoading(false);
         })
@@ -34,7 +34,7 @@ export default function UserProfile({ token, onClose }) {
 
   const handleChangeGrade = async (newGrade) => {
     if (!userInfo || !userInfo._id) {
-      console.log("userInfo:", userInfo);  // Log pour vérifier l'état de userInfo
+      console.log("userInfo:", userInfo);  
       setError("L'utilisateur n'est pas chargé.");
       return;
     }
@@ -48,7 +48,7 @@ export default function UserProfile({ token, onClose }) {
   
       if (response && response.message) {
         setSuccessMessage(`Grade modifié avec succès : ${response.message}`);
-        setUserInfo({ ...userInfo, grade: newGrade }); // Met à jour l'état local
+        setUserInfo({ ...userInfo, grade: newGrade }); 
       } else {
         setError('La réponse du serveur ne contient pas de message valide.');
       }
@@ -58,7 +58,7 @@ export default function UserProfile({ token, onClose }) {
     }
   };
 
-  // Chargement ou gestion des erreurs
+
   if (loading) return <div>Chargement...</div>;
 
   return (

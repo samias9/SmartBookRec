@@ -3,11 +3,10 @@ import axios from 'axios';
 import { getRecommendationsA } from '../auteur.mjs'; 
 
 const SearchButton = () => {
-  const [author, setAuthor] = useState(''); // Champ pour le nom de l'auteur
-  const [books, setBooks] = useState([]); // C pour Stocker les résultats de la recherche
-  const [recommendations, setRecommendations] = useState(''); // Stocker les recommandations de Mr. GPT
+  const [author, setAuthor] = useState(''); 
+  const [books, setBooks] = useState([]); 
+  const [recommendations, setRecommendations] = useState(''); 
 
-  // Fonction pour gérer la recherche
   const handleSearch = async () => {
     if (!author.trim()) {
       alert("Veuillez entrer un auteur valide.");
@@ -15,14 +14,11 @@ const SearchButton = () => {
     }
 
     try {
-      // Étape 1 : Obtenir les livres depuis la base de données
       const response = await axios.post('http://localhost:5000/api/books/search', { author });
       setBooks(response.data);
 
-      // Extraire les noms des auteurs uniques des livres récupérés
       const authorNames = [...new Set(response.data.flatMap((book) => book.authors || []))];
 
-      // Étape 2 : Obtenir des recommandations via OpenAI
       const gptResponse = await getRecommendationsA(authorNames.join(', '));
       setRecommendations(gptResponse);
     } catch (error) {

@@ -1,16 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Importation de cors
+const cors = require('cors'); 
 require('dotenv').config();
 require('dotenv').config({ path: './backend/.env' });
 
 const app = express();
 
-// Configuration de CORS
+
 app.use(cors({
-  origin: 'http://localhost:3000', // Autorise les requêtes depuis le frontend (localhost:3000)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Méthodes autorisées
-  allowedHeaders: ['Content-Type', 'Authorization'], // En-têtes autorisés
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
 
 //j'ai ajouté app.use(cors()); 
@@ -23,7 +23,7 @@ const bookRoutes = require('./routes/bookRoutes');
 app.use('/api/users', userRoutes);
 app.use('/api/books', bookRoutes);
 
-// Connexion à MongoDB
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((error) => console.error("Erreur de connexion à MongoDB :", error));

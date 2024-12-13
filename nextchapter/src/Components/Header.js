@@ -9,30 +9,30 @@ export default function Header({ isAuthenticated, onLoginSuccess, onLogoutClick 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showUserProfile, setShowUserProfile] = useState(false);
-  const [isProfileVisible, setIsProfileVisible] = useState(false); // State for profile visibility
+  const [isProfileVisible, setIsProfileVisible] = useState(false); 
 
   useEffect(() => {
     console.log('useEffect triggered: Checking authentication');
     if (!localStorage.getItem('token')) {
       console.log('No token found, hiding user profile');
       setShowUserProfile(false);
-      setIsProfileVisible(false);  // Hide profile when not authenticated
+      setIsProfileVisible(false);  
     } else {
       console.log('Token found, profile should be visible');
-      setShowUserProfile(true); // Show profile when authenticated
+      setShowUserProfile(true); 
     }
   }, [isAuthenticated]);
 
   const handleLoginClick = () => {
     console.log('Login button clicked');
     setShowLoginForm(true);
-    setShowSignUpForm(false); // Hide signup form
+    setShowSignUpForm(false); 
   };
 
   const handleSignUpClick = () => {
     console.log('Sign up button clicked');
-    setShowSignUpForm(true);  // Show signup form
-    setShowLoginForm(false);  // Hide login form
+    setShowSignUpForm(true); 
+    setShowLoginForm(false);  
   };
 
   const handleProfileClick = () => {
@@ -40,7 +40,7 @@ export default function Header({ isAuthenticated, onLoginSuccess, onLogoutClick 
     setShowUserProfile(true);
     setIsProfileVisible(prevState => {
       console.log('Previous state of isProfileVisible: ', prevState);
-      return !prevState;  // Toggle profile visibility
+      return !prevState;  
     });
   };
 
@@ -48,17 +48,15 @@ export default function Header({ isAuthenticated, onLoginSuccess, onLogoutClick 
     console.log('Logout button clicked');
     onLogoutClick();
     localStorage.removeItem('token');
-    setIsProfileVisible(false);  // Hide profile on logout
+    setIsProfileVisible(false);  
     setTimeout(() => {
-      setShowUserProfile(false); // Hide user profile after transition delay
+      setShowUserProfile(false); 
       console.log('User profile is now hidden');
-    }, 300); // Delay to allow transition
+    }, 300); 
   };
 
-  // Function to handle successful signup
   const onSignUpSuccess = (token) => {
     console.log('Signup successful with token:', token);
-    // Additional actions after successful signup (e.g., store token)
   };
 
   return (
@@ -73,7 +71,7 @@ export default function Header({ isAuthenticated, onLoginSuccess, onLogoutClick 
             <div className={`user-profile-container ${isProfileVisible ? 'show' : ''}`}>
               <UserProfile 
                 token={localStorage.getItem('token')} 
-                onClose={() => handleLogout()}  // Call function to close profile with delay
+                onClose={() => handleLogout()} 
               />
             </div>
           )}

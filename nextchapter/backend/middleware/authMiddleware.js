@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];  // Récupérer le token après "Bearer"
+  const token = req.headers.authorization?.split(' ')[1];  
   
   if (!token) {
     return res.status(401).json({ message: 'Token manquant' });
@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ message: 'Token invalide' });
     }
 
-    req.userId = decoded.userId;  // Ajouter l'ID de l'utilisateur à la requête
+    req.userId = decoded.userId; 
     next();
   });
 };

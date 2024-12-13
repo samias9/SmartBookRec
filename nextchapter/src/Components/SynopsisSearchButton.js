@@ -1,4 +1,4 @@
-//MARCHE PAS
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getRecommendationsS } from '../synopsis.mjs'; 
@@ -8,7 +8,6 @@ const SynopsisSearchButton = () => {
   const [books, setBooks] = useState([]); 
   const [recommendations, setRecommendations] = useState(''); 
 
-  // Fonction pour gérer la recherche
   const handleSearch = async () => {
     if (!synopsis.trim()) {
       alert("Veuillez entrer un synopsis valide.");
@@ -16,11 +15,9 @@ const SynopsisSearchButton = () => {
     }
 
     try {
-      // Étape 1 : Obtenir les livres depuis la base de données
       const response = await axios.post('http://localhost:5002/api/books/searchBySynopsis', { synopsis });
       setBooks(response.data);
 
-      // Étape 2 : Obtenir des recommandations via OpenAI
       const gptResponse = await getRecommendationsS(synopsis);
       setRecommendations(gptResponse);
     } catch (error) {

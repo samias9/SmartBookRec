@@ -1,4 +1,3 @@
-//Marche pas
 import React, { useState } from 'react';
 import axios from 'axios';
 import { getRecommendationsG } from '../genre.mjs'; 
@@ -8,16 +7,13 @@ const GenreSearchButton = () => {
   const [books, setBooks] = useState([]); 
   const [recommendations, setRecommendations] = useState(''); 
 
-  // Fonction pour gérer la recherche
   const handleSearch = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/books/searchByGenre', { genre: '' });
       setBooks(response.data);
   
-      // Extract details (e.g., titles, authors) for OpenAI recommendations
       const bookDetails = response.data.map((book) => `${book.title} by ${book.authors?.join(', ')}`).join('. ');
   
-      // Step 2: Obtain recommendations via OpenAI
       const gptResponse = await getRecommendationsG(bookDetails);
       setRecommendations(gptResponse);
     } catch (error) {

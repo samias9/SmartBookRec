@@ -7,7 +7,6 @@ import Login from './Components/LoginForm';
 import { getUserInfo } from './api';
 import './App.css';
 
-// Limites des requêtes par grade
 const gradeLimits = {
   free: 1,
   basic: 5,
@@ -21,16 +20,15 @@ export default function MyApp() {
   const [userQuery, setUserQuery] = useState('');
   const [response, setResponse] = useState('');
   const [searchType, setSearchType] = useState(null);
-  const [userGrade, setUserGrade] = useState(null); // Grade récupéré depuis la BDD
+  const [userGrade, setUserGrade] = useState(null); 
   const [requestCount, setRequestCount] = useState(0);
 
   useEffect(() => {
-    // Récupérer les informations utilisateur après authentification
     if (authToken) {
       getUserInfo(authToken)
         .then((data) => {
-          setUserGrade(data.grade); // Mettre à jour le grade depuis la BDD
-          setRequestCount(0); // Réinitialiser le compteur de requêtes
+          setUserGrade(data.grade); 
+          setRequestCount(0); 
         })
         .catch((error) => {
           console.error('Error fetching user info:', error);
@@ -59,7 +57,6 @@ export default function MyApp() {
       return;
     }
 
-    // Vérification des limites selon le grade
     const maxRequests = gradeLimits[userGrade] || 0;
     if (requestCount >= maxRequests) {
       setResponse(`You have reached your request limit for the ${userGrade} grade.`);
@@ -79,7 +76,7 @@ export default function MyApp() {
       }
 
       setResponse(recommendation);
-      setRequestCount(requestCount + 1); // Incrémenter le compteur de requêtes
+      setRequestCount(requestCount + 1); 
     } catch (error) {
       console.error('Error fetching recommendations:', error);
       setResponse('An error occurred. Please try again.');

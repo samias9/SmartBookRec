@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createUser } from '../api'; // Importer la fonction createUser
+import { createUser } from '../api'; 
 import './SignUpForm.css';
 
 export default function SignUpForm({ onClose }) {
@@ -10,10 +10,10 @@ export default function SignUpForm({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Appel de l'API pour créer un utilisateur
+
       const response = await createUser(pseudo, password);
       console.log('Utilisateur créé :', response);
-      onClose(); // Fermer le formulaire après succès
+      onClose(); 
     } catch (error) {
       console.error('Erreur lors de la création de l\'utilisateur :', error);
       setErrorMessage('Erreur lors de la création de votre compte. Veuillez réessayer.');
